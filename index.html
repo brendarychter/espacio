@@ -5,8 +5,11 @@
 	<link rel="stylesheet" href="public/css/styles.css">
 </head>
 <body>
-		<div id="my_photo_booth">
-		<div id="my_camera"></div>
+	<div id="my_photo_booth">
+		<div class="title-part-1">
+			PARTICIPARTE
+		</div>
+		<div id="my_camera" class="content"></div>
 		
 		<!-- First, include the Webcam.js JavaScript Library -->
 		<script type="text/javascript" src="public/js/webcam.js"></script>
@@ -15,8 +18,8 @@
 		<script language="JavaScript">
 			Webcam.set({
 				// live preview size
-				width: 320,
-				height: 240,
+				width: 640,
+				height: 480,
 				
 				// device capture size
 				dest_width: 640,
@@ -38,14 +41,16 @@
 		
 		<!-- A button for taking snaps -->
 		<form>
-			<div id="pre_take_buttons">
-				<!-- This button is shown before the user takes a snapshot -->
-				<input type=button value="Tomar foto" onClick="preview_snapshot()">
-			</div>
-			<div id="post_take_buttons" style="display:none">
-				<!-- These buttons are shown after a snapshot is taken -->
-				<input type=button value="&lt; Tomar otra" onClick="cancel_preview()">
-				<input type=button value="Guardar foto &gt;" onClick="save_photo()" style="font-weight:bold;">
+			<div class="content buttons-photo">
+				<div id="pre_take_buttons">
+					<!-- This button is shown before the user takes a snapshot -->
+					<input type=button value="Tomar foto" onClick="preview_snapshot()">
+				</div>
+				<div id="post_take_buttons" style="display:none">
+					<!-- These buttons are shown after a snapshot is taken -->
+					<input type=button value="&lt; Tomar otra" onClick="cancel_preview()">
+					<input type=button value="Guardar foto &gt;" id="save-photo" style="font-weight:bold;">
+				</div>
 			</div>
 		</form>
 	</div>
@@ -84,21 +89,8 @@
 			document.getElementById('post_take_buttons').style.display = 'none';
 		}
 		
-		function save_photo() {
-			// actually snap photo (from preview freeze) and display it
-			Webcam.snap( function(data_uri) {
-				// display results in page
-				document.getElementById('results').innerHTML = 
-					'<img src="'+data_uri+'"/><br/></br>';
-				
-				// shut down camera, stop capturing
-				Webcam.reset();
-				
-				// show results, hide photo booth
-				document.getElementById('results').style.display = '';
-				document.getElementById('my_photo_booth').style.display = 'none';
-			} );
-		}
 	</script>
+	<script src="public/js/jquery.js"></script>
+	<script src="public/js/actions.js"></script>
 </body>
 </html>

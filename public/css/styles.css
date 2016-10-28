@@ -2,3 +2,20 @@ body{
 	background-color: #000;
 	color: #FFF;
 }
+.title-part-1{
+	text-align: center;
+	margin: 0 auto;
+	font-size: 40px;
+	margin-top: 80px;
+}
+.content{
+	margin: 0 auto;
+	text-align: center;
+}
+#my_camera{
+	margin-top: 20px;
+    margin-bottom: 20px;
+}
+input{
+	font-size: 20px;
+}
