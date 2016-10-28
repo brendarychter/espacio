@@ -3,94 +3,120 @@
 <head>
 	<title>VERTEVEO</title>
 	<link rel="stylesheet" href="public/css/styles.css">
+	<style>
+	.camcontent{
+	  display: block;
+	  position: relative;
+	  overflow: hidden;
+	  height: 480px;
+	  margin: auto;
+	  }
+	.cambuttons button {
+	  border-radius: 15px;
+	  font-size: 18px;
+	  }
+	.cambuttons button:hover {
+	  cursor: pointer;
+	  border-radius: 15px;
+	  background: #00dd00 ;    /* green */ 
+	  }
+	</style>
 </head>
 <body>
-	<div id="my_photo_booth">
-		<div class="title-part-1">
-			PARTICIPARTE
-		</div>
-		<div id="my_camera" class="content"></div>
-		
-		<!-- First, include the Webcam.js JavaScript Library -->
-		<script type="text/javascript" src="public/js/webcam.js"></script>
-		
-		<!-- Configure a few settings and attach camera -->
-		<script language="JavaScript">
-			Webcam.set({
-				// live preview size
-				width: 640,
-				height: 480,
-				
-				// device capture size
-				dest_width: 640,
-				dest_height: 480,
-				
-				// final cropped size
-				crop_width: 480,
-				crop_height: 480,
-				
-				// format and quality
-				image_format: 'jpeg',
-				jpeg_quality: 90,
-				
-				// flip horizontal (mirror mode)
-				flip_horiz: true
-			});
-			Webcam.attach( '#my_camera' );
-		</script>
-		
-		<!-- A button for taking snaps -->
-		<form>
-			<div class="content buttons-photo">
-				<div id="pre_take_buttons">
-					<!-- This button is shown before the user takes a snapshot -->
-					<input type=button value="Tomar foto" onClick="preview_snapshot()">
-				</div>
-				<div id="post_take_buttons" style="display:none">
-					<!-- These buttons are shown after a snapshot is taken -->
-					<input type=button value="&lt; Tomar otra" onClick="cancel_preview()">
-					<input type=button value="Guardar foto &gt;" id="save-photo" style="font-weight:bold;">
-				</div>
-			</div>
-		</form>
-	</div>
-	
-	<div id="results" style="display:none">
-		<!-- Your captured image will appear here... -->
-	</div>
-	
-	<!-- Code to handle taking the snapshot and displaying it locally -->
-	<script language="JavaScript">
-		// preload shutter audio clip
-		//var shutter = new Audio();
-		//shutter.autoplay = false;
-		//shutter.src = navigator.userAgent.match(/Firefox/) ? 'shutter.ogg' : 'shutter.mp3';
-		
-		function preview_snapshot() {
-			// play sound effect
-			//try { shutter.currentTime = 0; } catch(e) {;} // fails in IE
-			//shutter.play();
-			
-			// freeze camera so user can preview current frame
-			Webcam.set({flip_horiz: true});
-			Webcam.freeze();
-			
-			// swap button sets
-			document.getElementById('pre_take_buttons').style.display = 'none';
-			document.getElementById('post_take_buttons').style.display = '';
-		}
-		
-		function cancel_preview() {
-			// cancel preview freeze and return to live camera view
-			Webcam.set({flip_horiz: false});
-			Webcam.unfreeze();
-			// swap buttons back to first set
-			document.getElementById('pre_take_buttons').style.display = '';
-			document.getElementById('post_take_buttons').style.display = 'none';
-		}
-		
-	</script>
-	<script src="public/js/jquery.js"></script>
-	<script src="public/js/actions.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script>
+        // Put event listeners into place
+        window.addEventListener("DOMContentLoaded", function() {
+            // Grab elements, create settings, etc.
+            var canvas = document.getElementById("canvas"),
+                context = canvas.getContext("2d"),
+                video = document.getElementById("video"),
+                videoObj = { "video": true },
+                image_format= "jpeg",
+                jpeg_quality= 85,
+                errBack = function(error) {
+                    console.log("Video capture error: ", error.code); 
+                };
+
+
+            // Put video listeners into place
+            if(navigator.getUserMedia) { // Standard
+                navigator.getUserMedia(videoObj, function(stream) {
+                    video.src = stream;
+                    video.play();
+                    $("#snap").show();
+                }, errBack);
+            } else if(navigator.webkitGetUserMedia) { // WebKit-prefixed
+                navigator.webkitGetUserMedia(videoObj, function(stream){
+                    video.src = window.webkitURL.createObjectURL(stream);
+                    video.play();
+                    $("#snap").show();
+                }, errBack);
+            } else if(navigator.mozGetUserMedia) { // moz-prefixed
+                navigator.mozGetUserMedia(videoObj, function(stream){
+                    video.src = window.URL.createObjectURL(stream);
+                    video.play();
+                    $("#snap").show();
+                }, errBack);
+            }
+                  // video.play();       these 2 lines must be repeated above 3 times
+                  // $("#snap").show();  rather than here once, to keep "capture" hidden
+                  //                     until after the webcam has been activated.  
+
+            // Get-Save Snapshot - image 
+            document.getElementById("snap").addEventListener("click", function() {
+                context.drawImage(video, 0, 0, 640, 480);
+                // the fade only works on firefox?
+                $("#video").fadeOut("slow");
+                $("#canvas").fadeIn("slow");
+                $("#snap").hide();
+                $("#reset").show();
+                $("#upload").show();
+            });
+            // reset - clear - to Capture New Photo
+            document.getElementById("reset").addEventListener("click", function() {
+                $("#video").fadeIn("slow");
+                $("#canvas").fadeOut("slow");
+                $("#snap").show();
+                $("#reset").hide();
+                $("#upload").hide();
+            });
+            // Upload image to sever 
+            document.getElementById("upload").addEventListener("click", function(){
+                var dataUrl = canvas.toDataURL("image/jpeg");
+                console.log(dataUrl);
+                imgData
+                $("#uploading").show();
+                $.ajax({
+                  type: "POST",
+                  url: "html5-webcam-save.php",
+                  data: { 
+                     imgBase64: dataUrl,
+                     user: "Joe",       
+                     userid: 25         
+                  }
+                }).done(function(msg) {
+                  console.log("saved");
+                  $("#uploading").hide();
+                  $("#uploaded").show();
+                });
+            });
+        }, false);
+
+   </script>
+
+
+<div class="camcontent">
+    <video id="video" autoplay></video>
+    <canvas id="canvas" width="640" height="480">
+</div>
+<div class="cambuttons">
+    <button id="snap" style="display:none;">  Capture </button> 
+    <button id="reset" style="display:none;">  Reset  </button>     
+    <button id="upload" style="display:none;"> Upload </button> 
+    <br> <span id=uploading style="display:none;"> Uploading has begun . . .  </span> 
+         <span id=uploaded  style="display:none;"> Success, your photo has been uploaded! 
+                <a href="javascript:history.go(-1)"> Return </a> </span> 
+ </div>
 </body>
 </html>
