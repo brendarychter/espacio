@@ -1,27 +1,24 @@
 $(document).ready(function(){
 	$('#save-photo').on('click', function(){
         //Validate empty input
-        params= {};
         //params.username = $('#username-login').val();
 
 
         // actually snap photo (from preview freeze) and display it
         Webcam.snap( function(data_uri) {
-            console.log(data_uri);
             // display results in page
             document.getElementById('results').innerHTML = '<img src="'+data_uri+'"/><br/></br>';
-            console.log(my_camera.toDataURL("image/jpeg", 0.85));
             // shut down camera, stop capturing
             Webcam.reset();
+            console.log(data_uri);
+            params= {};
             
             // show results, hide photo booth
             document.getElementById('results').style.display = '';
             document.getElementById('my_photo_booth').style.display = 'none';
             params.datauri= data_uri;
+
             console.log("foto enviada");
-
-            params.action = "insert";
-
             $.ajax({
                 //http://blinkapp.com.ar/back/user/adminUser.php
                 url: "admin/admin.php",
@@ -30,11 +27,18 @@ $(document).ready(function(){
                 cache: false,
                 dataType: "json"
             }).done(function( data ) {
-                console.log("foto recibida");
                 console.log(data);
             }).error(function(error, textStatus){
                 console.log(error);
             });
+
+
+          /*  Webcam.upload( data_uri, 'admin/admin.php', function(code, text) {
+                console.log
+                // Upload complete!
+                // 'code' will be the HTTP response code from the server, e.g. 200
+                // 'text' will be the raw response content
+            } );*/
         } );
 
     })

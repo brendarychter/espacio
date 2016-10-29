@@ -2,10 +2,10 @@
 	session_start();
 	require_once("connection.php");
     $connection = new connection;
-	
+	$uri = $_POST["datauri"];
 
 	if(!mysqli_connect_error()){
-		$consulta = "SELECT * FROM images";
+/*		$consulta = "INSERT * FROM images";
 		$response = mysqli_query($connection->connected,$consulta);
 
 		while($obj = mysqli_fetch_object($response)){
@@ -13,6 +13,14 @@
 		}
 		//, 'userID' => $obj->userID
 		$datos = json_encode($matriz);
-		echo $datos;
+		echo $datos;*/
+
+
+		$query = "INSERT INTO images (name) VALUES ('$uri')";
+		if (mysqli_query ($connection->connected, $query)) {
+		    echo "Escribio.";
+		} else {
+		    echo "Error";
+		}
 	}
 ?>
