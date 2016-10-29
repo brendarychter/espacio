@@ -2,11 +2,10 @@
 	session_start();
 	require_once("connection.php");
     $connection = new connection;
-	
 
 	if(!mysqli_connect_error()){
 		
-		$consulta = "INSERT INTO images (name) VALUES ('$this->name)'";
+		$consulta = "SELECT * FROM images";
 		$response = mysqli_query($connection->connected,$consulta);
 
 		while($obj = mysqli_fetch_object($response)){

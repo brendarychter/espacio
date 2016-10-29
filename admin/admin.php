@@ -7,14 +7,14 @@
 	if(!mysqli_connect_error()){
 
 
-/*		$query = "INSERT INTO images (name) VALUES ('$uri')";
+		$query = "INSERT INTO images (name) VALUES ('$uri')";
 		if (mysqli_query ($connection->connected, $query)) {
 		    echo "Escribio.";
 		} else {
 		    echo "Error";
 		}
-*/
-		$consulta = "SELECT * FROM images";
+
+/*		$consulta = "SELECT * FROM images";
 		$response = mysqli_query($connection->connected,$consulta);
 
 		while($obj = mysqli_fetch_object($response)){
@@ -22,6 +22,6 @@
 		}
 		//, 'userID' => $obj->userID
 		$datos = json_encode($matriz);
-		echo $datos;
+		echo $datos;*/
 	}
 ?>

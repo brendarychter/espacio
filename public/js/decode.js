@@ -1,5 +1,27 @@
 $(document).ready(function(){
-	$('#save-photo').on('click', function(){
+	//document.getElementById('mypic').innerHTML = '<img src="'+ls+'"/>';
+	params = {};
+        console.log("entro");
+	$.ajax({
+        //url: "http://brendarychter.com.ar/admin/getAllImages.php",
+        url: "admin/getAllImages.php",
+        type: "POST",
+        data: params,
+        cache: false,
+        dataType: "json"
+    }).done(function( data ) {
+        console.log("foto recibida");
+        for (var photo in data){
+        	console.log(data[photo]);
+        }
+
+        //Make collage
+    }).error(function(error, textStatus){
+        console.log(error);
+    });
+
+
+    $('#save-photo').on('click', function(){
         // actually snap photo (from preview freeze) and display it
         Webcam.snap( function(data_uri) {
             // display results in page
@@ -16,8 +38,8 @@ $(document).ready(function(){
             console.log("foto enviada");
             //MOSTRAR UN COUNTER PARA GUARDAR LA FOTO
             $.ajax({
-                //url: "http://brendarychter.com.ar/admin/admin.php",
-                url: "admin/admin.php",
+                url: "http://brendarychter.com.ar/admin/admin.php",
+                //url: "admin/admin.php",
                 type: "POST",
                 data: params,
                 cache: false,
@@ -31,27 +53,4 @@ $(document).ready(function(){
         } );
 
     })
-
-    function cancel_preview() {
-        // cancel preview freeze and return to live camera view
-        Webcam.set({flip_horiz: false});
-        Webcam.unfreeze();
-        // swap buttons back to first set
-        document.getElementById('pre_take_buttons').style.display = '';
-        document.getElementById('post_take_buttons').style.display = 'none';
-    }
-
-    function preview_snapshot() {
-        // play sound effect
-        //try { shutter.currentTime = 0; } catch(e) {;} // fails in IE
-        //shutter.play();
-        
-        // freeze camera so user can preview current frame
-        Webcam.set({flip_horiz: true});
-        Webcam.freeze();
-        
-        // swap button sets
-        document.getElementById('pre_take_buttons').style.display = 'none';
-        document.getElementById('post_take_buttons').style.display = '';
-    }
-});
+})
