@@ -10,7 +10,6 @@ $(document).ready(function(){
             document.getElementById('results').innerHTML = '<img src="'+data_uri+'"/><br/></br>';
             // shut down camera, stop capturing
             Webcam.reset();
-            console.log(data_uri);
             params= {};
             
             // show results, hide photo booth
@@ -27,14 +26,14 @@ $(document).ready(function(){
                 cache: false,
                 dataType: "json"
             }).done(function( data ) {
+                console.log("foto recibida");
                 console.log(data);
             }).error(function(error, textStatus){
                 console.log(error);
             });
 
 
-          /*  Webcam.upload( data_uri, 'admin/admin.php', function(code, text) {
-                console.log
+      /*      Webcam.upload( data_uri, 'myscript.php', function(code, text) {
                 // Upload complete!
                 // 'code' will be the HTTP response code from the server, e.g. 200
                 // 'text' will be the raw response content
