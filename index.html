@@ -1,96 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>VERTEVEO</title>
+	<title>2 VERTEVEO</title>
 	<link rel="stylesheet" href="public/css/styles.css">
 </head>
 <body>
-	<div id="my_photo_booth">
-		<div class="title-part-1">
-			Titulo
-		</div>
-		<div id="my_camera" class="content"></div>
-		
-		<!-- First, include the Webcam.js JavaScript Library -->
-		<script type="text/javascript" src="public/js/webcam.js"></script>
-		
-		<!-- Configure a few settings and attach camera -->
-		<script language="JavaScript">
-			Webcam.set({
-				// live preview size
-				width: 640,
-				height: 480,
-				
-				// device capture size
-				dest_width: 640,
-				dest_height: 480,
-				
-				// final cropped size
-				crop_width: 480,
-				crop_height: 480,
-				
-				// format and quality
-				image_format: 'jpeg',
-				jpeg_quality: 90,
-				
-				// flip horizontal (mirror mode)
-				flip_horiz: true
-			});
-			Webcam.attach( '#my_camera' );
-		</script>
-		
-		<!-- A button for taking snaps -->
-		<form>
-			<div class="content buttons-photo">
-				<div id="pre_take_buttons">
-					<!-- This button is shown before the user takes a snapshot -->
-					<input type=button value="Tomar foto" onClick="preview_snapshot()">
-				</div>
-				<div id="post_take_buttons" style="display:none">
-					<!-- These buttons are shown after a snapshot is taken -->
-					<input type=button value="&lt; Tomar otra" onClick="cancel_preview()">
-					<input type=button value="Guardar foto &gt;" id="save-photo" style="font-weight:bold;">
-				</div>
-			</div>
-		</form>
+	<div id="mypic">
 	</div>
-	
-	<div id="results" style="display:none">
-		<!-- Your captured image will appear here... -->
-	</div>
-	
-	<!-- Code to handle taking the snapshot and displaying it locally -->
-	<script language="JavaScript">
-		// preload shutter audio clip
-		//var shutter = new Audio();
-		//shutter.autoplay = false;
-		//shutter.src = navigator.userAgent.match(/Firefox/) ? 'shutter.ogg' : 'shutter.mp3';
-		
-		function preview_snapshot() {
-			// play sound effect
-			//try { shutter.currentTime = 0; } catch(e) {;} // fails in IE
-			//shutter.play();
-			
-			// freeze camera so user can preview current frame
-			Webcam.set({flip_horiz: true});
-			Webcam.freeze();
-			
-			// swap button sets
-			document.getElementById('pre_take_buttons').style.display = 'none';
-			document.getElementById('post_take_buttons').style.display = '';
-		}
-		
-		function cancel_preview() {
-			// cancel preview freeze and return to live camera view
-			Webcam.set({flip_horiz: false});
-			Webcam.unfreeze();
-			// swap buttons back to first set
-			document.getElementById('pre_take_buttons').style.display = '';
-			document.getElementById('post_take_buttons').style.display = 'none';
-		}
-		
-	</script>
+
+
+	<p>Capture Image: <input type="file" accept="image/*" id="capture" capture="camera"> 
+	<input type=button value="Guardar foto &gt;" id="save-photo" style="font-weight:bold;">
+
 	<script src="public/js/jquery.js"></script>
-	<script src="public/js/actions.js"></script>
+	<script src="public/js/decode.js"></script>
 </body>
 </html>
