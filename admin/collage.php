@@ -5,9 +5,9 @@
 	$uri = $_POST["datauri"];
 	//echo $uri;
 	if(!mysqli_connect_error()){
-		$query = "INSERT INTO images (name) VALUES ('$uri')";
+		$query = "INSERT INTO collages (name) VALUES ('$uri')";
 		if (mysqli_query ($connection->connected, $query)) {
-		    echo "Escribio.";
+		    echo "Escribio collage.";
 		} else {
 		    echo "Error";
 		}
