@@ -30,9 +30,10 @@ $(document).ready(function(){
 	        allowTaint: true
 	    }).then(function(canvas) {
 	    	document.getElementById("result").appendChild(canvas);
-	    	urlcollage = canvas.toDataURL('image/png').replace(/^data:image\/(png|jpg);base64,/, '');
+	    	urlcollage = canvas.toDataURL();
 	    }).then(function(){
 	    	params.urlcollage = urlcollage;
+            console.log(urlcollage)
 	    	$.ajax({
                 //url: "http://brendarychter.com.ar/arte/admin/collage.php",
                 url: "admin/collage.php",

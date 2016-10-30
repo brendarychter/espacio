@@ -20,13 +20,20 @@ input{
 	font-size: 20px;
 }
 #am-container img{
-	width: 150px;
-	height: 150px;
+	width: 125px;
+	height: 125px;
 }
 #am-container{
-	width: 450px;
-	height: 450px;
+	width: 500px;
+	height: 750px;
 	float: left;
 	margin-right: 20px;
 	overflow: hidden;
+	background-color: #000;
+	-webkit-transform: scaleX(-1); 
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -ms-transform: scaleX(-1);
+    transform: scaleX(-1);
+    padding-top: 250px;
 }
