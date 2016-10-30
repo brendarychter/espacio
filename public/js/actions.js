@@ -1,8 +1,4 @@
 $(document).ready(function(){
-    $('#save-photo').trigger({
-        type: 'mousedown',
-        which: 3
-    });
 	$('#save-photo').on('click', function(){
         // actually snap photo (from preview freeze) and display it
         Webcam.snap( function(data_uri) {
@@ -27,7 +23,7 @@ $(document).ready(function(){
                 dataType: "text"
             }).done(function( data ) {
                 console.log("foto recibida");
-                window.open('app.html', 'parent');  
+                window.open('app.html', 'new');  
             }).error(function(error, textStatus){
                 console.log(error);
                 console.log(textStatus);

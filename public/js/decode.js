@@ -2,6 +2,17 @@ $(document).ready(function(){
 	var params = {};
     console.log("entro");
     var urlcollage = "";
+    /*   var addContent = {
+    append: function (obj, data, callBack) {
+            "use strict";
+            obj.append(data);
+            callBack();
+        }
+    }
+    var to = jQuery('div');
+    addContent.append(to, '<div id="element1"></div>', function () {
+        window.open('index.html', '_blank');
+    });*/
 	$.ajax({
         //url: "http://brendarychter.com.ar/arte/admin/getAllImages.php",
         url: "admin/getAllImages.php",

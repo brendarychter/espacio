@@ -5,7 +5,8 @@
 	$urlcollage = $_POST["urlcollage"];
 	
 	if(!mysqli_connect_error()){
-		$query = "INSERT INTO collages (collage_name) VALUES ('$urlcollage')";
+		//Si esta vacio, la primera vez lo tengo que crear
+		$query = "UPDATE collages SET (collage_name=$urlcollage) WHERE id_collage = 37";
 		if (mysqli_query ($connection->connected, $query)) {
 		    echo "Escribio collage.";
 		} else {

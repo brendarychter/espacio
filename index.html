@@ -82,7 +82,7 @@
 		
 		function cancel_preview() {
 			// cancel preview freeze and return to live camera view
-			Webcam.set({flip_horiz: false});
+			Webcam.set({flip_horiz: true});
 			Webcam.unfreeze();
 			// swap buttons back to first set
 			document.getElementById('pre_take_buttons').style.display = '';
