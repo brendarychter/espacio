@@ -13,20 +13,19 @@ $(document).ready(function(){
             document.getElementById('my_photo_booth').style.display = 'none';
             params.datauri= data_uri;
 
-            console.log("foto enviada");
             //MOSTRAR UN COUNTER PARA GUARDAR LA FOTO
             $.ajax({
-                //url: "http://brendarychter.com.ar/admin/admin.php",
+                //url: "http://brendarychter.com.ar/arte/admin/admin.php",
                 url: "admin/admin.php",
                 type: "POST",
                 data: params,
                 cache: false,
-                dataType: "json"
+                dataType: "text"
             }).done(function( data ) {
                 console.log("foto recibida");
-                console.log(data);
             }).error(function(error, textStatus){
                 console.log(error);
+                console.log(textStatus);
             });
         } );
 

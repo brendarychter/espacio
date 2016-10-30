@@ -1,17 +1,17 @@
 $(document).ready(function(){
-	params = {};
-        console.log("entro");
+	var params = {};
+    console.log("entro");
+    var urlcollage = "";
 	$.ajax({
-        //url: "http://brendarychter.com.ar/admin/getAllImages.php",
+        //url: "http://brendarychter.com.ar/arte/admin/getAllImages.php",
         url: "admin/getAllImages.php",
         type: "POST",
         data: params,
         cache: false,
         dataType: "json"
     }).done(function( data ) {
-        console.log("foto recibida");
+        data.reverse();
         for (var photo in data){
-        //	console.log(data[photo]);
         	//Cuando ya hay diez imágenes, podría empezar a hacer n-1
         	$('#am-container').append("<img src='" +data[photo].name +"' title='photo-" +data[photo].id_image +"'></img>")
         }
@@ -19,26 +19,21 @@ $(document).ready(function(){
 	        allowTaint: true
 	    }).then(function(canvas) {
 	    	document.getElementById("result").appendChild(canvas);
-	    	params = {};
-	    	//params.datauri = canvas.toDataURL('image/png').replace(/^data:image\/(png|jpg);base64,/, '');
-	    /*	getDataUri($('#result').src, function(dataUri) {
-			    // Do whatever you'd like with the Data URI!
-			});
+	    	urlcollage = canvas.toDataURL('image/png').replace(/^data:image\/(png|jpg);base64,/, '');
+	    }).then(function(){
+	    	params.urlcollage = urlcollage;
 	    	$.ajax({
-                //url: "http://brendarychter.com.ar/admin/admin.php",
+                //url: "http://brendarychter.com.ar/arte/admin/collage.php",
                 url: "admin/collage.php",
                 type: "POST",
                 data: params,
                 cache: false,
-                dataType: "json"
+                dataType: "text"
             }).done(function( data ) {
                 console.log(data);
             }).error(function(error, textStatus){
-                console.log(error);
-            });*/
-	    }).then(function(canvas){
-	    	console.log("hola")
-	    	console.log(canvas)
+                console.log(textStatus);
+            });
 	    });
         //Make collage
     }).error(function(error, textStatus){

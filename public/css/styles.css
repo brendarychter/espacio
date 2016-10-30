@@ -23,3 +23,10 @@ input{
 	width: 150px;
 	height: 150px;
 }
+#am-container{
+	width: 450px;
+	height: 450px;
+	float: left;
+	margin-right: 20px;
+	overflow: hidden;
+}
