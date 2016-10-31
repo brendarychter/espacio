@@ -1,6 +1,5 @@
 $(document).ready(function(){
 	$.ajax({
-        //url: "http://brendarychter.com.ar/arte/admin/getCollage.php",
         url: "admin/getCollage.php",
         type: "POST",
         cache: false,

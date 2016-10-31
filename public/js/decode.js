@@ -2,19 +2,7 @@ $(document).ready(function(){
 	var params = {};
     console.log("entro");
     var urlcollage = "";
-    /*   var addContent = {
-    append: function (obj, data, callBack) {
-            "use strict";
-            obj.append(data);
-            callBack();
-        }
-    }
-    var to = jQuery('div');
-    addContent.append(to, '<div id="element1"></div>', function () {
-        window.open('index.html', '_blank');
-    });*/
 	$.ajax({
-        //url: "http://brendarychter.com.ar/arte/admin/getAllImages.php",
         url: "admin/getAllImages.php",
         type: "POST",
         data: params,
@@ -35,16 +23,13 @@ $(document).ready(function(){
 	    	params.urlcollage = urlcollage;
             console.log(urlcollage)
 	    	$.ajax({
-                //url: "http://brendarychter.com.ar/arte/admin/collage.php",
                 url: "admin/collage.php",
                 type: "POST",
                 data: params,
                 cache: false,
                 dataType: "text"
             }).done(function( data ) {
-                console.log(data);
-                window.open('collage.html', 'new'); 
-
+                //console.log(data);
             }).error(function(error, textStatus){
                 console.log(textStatus);
             });
