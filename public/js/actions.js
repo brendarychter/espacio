@@ -9,8 +9,8 @@ $(document).ready(function(){
             params= {};
             
             // show results, hide photo booth
-            document.getElementById('results').style.display = '';
-            document.getElementById('my_photo_booth').style.display = 'none';
+            //document.getElementById('results').style.display = '';
+            //document.getElementById('my_photo_booth').style.display = 'none';
             params.datauri= data_uri;
 
             //MOSTRAR UN COUNTER PARA GUARDAR LA FOTO
@@ -23,7 +23,8 @@ $(document).ready(function(){
                 dataType: "text"
             }).done(function( data ) {
                 console.log("foto recibida");
-                window.open('app.html', 'new'); 
+                window.open('app.html', 'new');
+                location.reload();
             }).error(function(error, textStatus){
                 console.log(error);
                 console.log(textStatus);
