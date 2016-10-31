@@ -79,6 +79,8 @@
 				display : block;
 			}
 		</style>
+		<link rel="stylesheet" href="public/css/styles.css">
+
 		<script>
 			// getUserMedia only works over https in Chrome 47+, so we redirect to https. Also notify user if running from file.
 			if (window.location.protocol == "file:") {
@@ -280,11 +282,13 @@
 					if (positions) {
 						// draw current grid
 						ctrack.draw(overlay);
+						console.log("is drawing")
 					}
 					// check whether mask has converged
 					var pn = ctrack.getConvergence();
 					if (pn < 0.4) {
 						switchMasks();
+						console.log("dibujo")
 						requestAnimFrame(drawMaskLoop);
 					} else {
 						requestAnimFrame(drawGridLoop);
