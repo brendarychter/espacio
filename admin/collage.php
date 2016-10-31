@@ -14,7 +14,7 @@
 				$matriz[] = array('id_collage' => $obj->id_collage);
 				$idCollage = $obj->id_collage;
 			}
-			$query = "UPDATE collages SET collage_name=$urlcollage";
+			$query = "UPDATE collages SET collage_name='$urlcollage'";
 			if (mysqli_query ($connection->connected, $query)) {
 			    echo "Escribio collage.";
 			} else {

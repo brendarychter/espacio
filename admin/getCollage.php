@@ -4,15 +4,13 @@
     $connection = new connection;
 
 	if(!mysqli_connect_error()){
-		
 		$consulta = "SELECT * FROM collages";
 		$response = mysqli_query($connection->connected,$consulta);
-
+		$collage;
 		while($obj = mysqli_fetch_object($response)){
-			$matriz[] = array('collage_name' => $obj->name, 'id_collage' => $obj->id_image);
+			$matriz[] = array('collage_name' => $obj->collage_name);
+			$collage = $obj->collage_name;
 		}
-		//, 'userID' => $obj->userID
-		$datos = json_encode($matriz);
-		echo $datos;
+		echo $collage;
 	}
 ?>
