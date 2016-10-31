@@ -43,6 +43,8 @@ $(document).ready(function(){
                 dataType: "text"
             }).done(function( data ) {
                 console.log(data);
+                window.open('collage.html', 'new'); 
+                
             }).error(function(error, textStatus){
                 console.log(textStatus);
             });

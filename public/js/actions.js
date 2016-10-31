@@ -23,7 +23,7 @@ $(document).ready(function(){
                 dataType: "text"
             }).done(function( data ) {
                 console.log("foto recibida");
-                window.open('app.html', 'new');  
+                window.open('app.html', 'new'); 
             }).error(function(error, textStatus){
                 console.log(error);
                 console.log(textStatus);
