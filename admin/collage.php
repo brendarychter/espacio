@@ -5,13 +5,28 @@
 	$urlcollage = $_POST["urlcollage"];
 	
 	if(!mysqli_connect_error()){
-		//Si esta vacio, la primera vez lo tengo que crear
-		//$query = "UPDATE collages SET (collage_name=$urlcollage) WHERE id_collage = 37";
-		$query = "INSERT INTO collages (collage_name) VALUES ('$urlcollage')";
-		if (mysqli_query ($connection->connected, $query)) {
-		    echo "Escribio collage.";
-		} else {
-		    echo "Error";
+
+		$consulta = "SELECT * FROM collages";
+		$response = mysqli_query($connection->connected,$consulta);
+		$idCollage;
+		if (mysqli_num_rows($response) > 0) {
+			while($obj = mysqli_fetch_object($response)){
+				$matriz[] = array('id_collage' => $obj->id_collage);
+				$idCollage = $obj->id_collage;
+			}
+			$query = "UPDATE collages SET collage_name=$urlcollage";
+			if (mysqli_query ($connection->connected, $query)) {
+			    echo "Escribio collage.";
+			} else {
+			    echo "Error updating";
+			}
+		}else{
+			$query = "INSERT INTO collages (collage_name) VALUES ('$urlcollage')";
+			if (mysqli_query ($connection->connected, $query)) {
+			    echo "Escribio collage.";
+			} else {
+			    echo "Error";
+			}
 		}
 	}
 ?>
