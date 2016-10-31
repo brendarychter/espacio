@@ -5,7 +5,7 @@ $(document).ready(function(){
             // display results in page
             document.getElementById('results').innerHTML = '<img src="'+data_uri+'"/><br/></br>';
             // shut down camera, stop capturing
-            Webcam.reset();
+            //Webcam.reset();
             params= {};
             
             // show results, hide photo booth
@@ -24,7 +24,8 @@ $(document).ready(function(){
             }).done(function( data ) {
                 console.log("foto recibida");
                 window.open('app.html', 'new');
-                location.reload();
+                document.getElementById('pre_take_buttons').style.display = '';
+                document.getElementById('post_take_buttons').style.display = 'none';
             }).error(function(error, textStatus){
                 console.log(error);
                 console.log(textStatus);

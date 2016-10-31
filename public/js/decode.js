@@ -44,7 +44,6 @@ $(document).ready(function(){
             }).done(function( data ) {
                 console.log(data);
                 window.open('collage.html', 'new'); 
-                window.open('index.html', 'new'); 
 
             }).error(function(error, textStatus){
                 console.log(textStatus);

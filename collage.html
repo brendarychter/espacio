@@ -320,8 +320,44 @@
 				
 
 			</script>
-			<script src="public/js/getCollage.js"></script>
+			<!-- <script src="public/js/getCollage.js"></script> -->
+			<script>
+				var amount = Number(localStorage.getItem("images"));
+				var newAmount;
+				$(document).ready(function(){
+					setInterval(function(){
+						console.log("hizo consulta");
+							$.ajax({
+						        url: "admin/refresh.php",
+						        type: "POST",
+						        cache: false,
+						        dataType: "text"
+						    }).done(function( data ) {
+						        if (Number(data)>amount){
+						        	console.log(Number(data));
+						        	newAmount = data;
+						        	$.ajax({
+								        url: "admin/getCollage.php",
+								        type: "POST",
+								        cache: false,
+								        dataType: "text"
+								    }).done(function( data ) {
+								        if (!data == "")        {
+								            $("#skull").attr("src", data);
+								            localStorage.setItem("images", newAmount);
+								            location.reload();
+								        }
+								    }).error(function(error, textStatus){
+								        console.log(error);
+								    });
+						        }
+						    }).error(function(error, textStatus){
+						        console.log(error);
+						    });
+					},1000);
+				})
 
+			</script>
 		</div>
 	</body>
 </html>
