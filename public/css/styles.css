@@ -1,6 +1,9 @@
 body{
 	background-color: #000;
 	color: #FFF;
+	font-family: monospace;
+	letter-spacing: 2px;
+	font-weight: bold;
 }
 .title-part-1{
 	text-align: center;
@@ -18,6 +21,12 @@ body{
 }
 input{
 	font-size: 20px;
+	text-transform: uppercase;
+	background-color: #000;
+	color: #FFF;
+	padding: 10px;
+	font-family: monospace;
+	letter-spacing: 2px;
 }
 #am-container img{
 	width: 125px;
